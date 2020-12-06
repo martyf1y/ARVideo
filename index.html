@@ -8,34 +8,23 @@
          var v = document.querySelector('#vid');
          v.play();
         });
-        
         window.onload = function () {
                 AFRAME.registerComponent('vidhandler', {
                     init: function () {
                         let marker = this.el;
                         this.vid = document.querySelector("#vid");
-                        
-                        
                         this.vid.addEventListener("ended", (e) => {
                             this.vid.currentTime = 0;
                             this.vid.play();
                         })
                     
-                   
-                    },
-                     tick: function () {
+                     marker.addEventListener('markerFound', function () {this.vid.play()}.bind(this));
 
-                     if (this.el.object3D.visible == true) {
-                     if (!this.toggle) {
-                     this.toggle = true;
-                     this.vid.play();
-                     }
-                     } else {
-                     this.toggle = false;
+                     marker.addEventListener('markerLost', function () {
                      this.vid.pause();
                      this.vid.currentTime = 0;
-                     }
-                     },
+                     }.bind(this));
+                    }
                 });
         }
     </script>
@@ -75,7 +64,13 @@
             <video 
             id="vid" 
             src="Moto1080x2520NoAudio.mp4" 
-
+            preload="auto" 
+            response-type="arraybuffer" 
+            loop 
+            crossorigin
+            webkit-playsinline 
+            autoplay 
+            playsinline
             ></video>
         </a-assets>
 
@@ -86,8 +81,7 @@
         smooth="true" 
         smoothCount="10" 
         smoothTolerance="0.01"
-        smoothThreshold="5"
-        emitevents="true">
+        smoothThreshold="5">
             
             <a-video 
             id="vidPlane" 
@@ -96,7 +90,6 @@
             width='70' 
             height='155' 
             rotation="270 0 0"
-            vidhandler
             ></a-video>
         </a-nft>
 
