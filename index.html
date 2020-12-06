@@ -9,8 +9,8 @@
                     init: function () {
                         let marker = this.el;
                         this.vid = document.querySelector("#vid");
-                        this.vid.pause();
-                        this.el.setAttribute('visible', false);
+                        
+                        
                         this.vid.addEventListener("ended", (e) => {
                             this.vid.currentTime = 0;
                             this.vid.play();
@@ -20,7 +20,7 @@
                     },
                      tick: function () {
 
-                     if (this.el.object3D.visible == true && !this.hidden) {
+                     if (this.el.object3D.visible == true) {
                      if (!this.toggle) {
                      this.toggle = true;
                      this.vid.play();
@@ -81,7 +81,8 @@
         smooth="true" 
         smoothCount="10" 
         smoothTolerance="0.01"
-        smoothThreshold="5">
+        smoothThreshold="5"
+        emitevents="true">
             
             <a-video 
             id="vidPlane" 
